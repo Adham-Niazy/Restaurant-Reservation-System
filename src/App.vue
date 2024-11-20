@@ -1,8 +1,20 @@
 <script>
+import MainNavbar from "./components/layout/MainNavbar.vue";
+import ManageReservationsPage from "./views/ManageReservationsPage.vue";
+
+export default {
+  components: {
+    MainNavbar,
+    ManageReservationsPage,
+  },
+};
 </script>
 
 <template>
-  <h1 class="text-red-500">Hello</h1>
+  <div>
+    <MainNavbar />
+    <ManageReservationsPage />
+  </div>
 </template>
 
 <style>
