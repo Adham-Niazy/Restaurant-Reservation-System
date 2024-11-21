@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ["btnStyle"],
+  props: ["btnStyle", "disabled"],
   computed: {
     appliedBtnStyles() {
       switch (this.btnStyle) {
@@ -23,8 +23,9 @@ export default {
 
 <template>
   <button
+    :disabled="disabled"
     @click="handleClickEmitter"
-    :class="`${appliedBtnStyles} px-4 py-2 cursor-pointer font-extralight`"
+    :class="`${appliedBtnStyles} disabled:opacity-40 disabled:cursor-not-allowed px-4 py-2 cursor-pointer font-extralight`"
   >
     <slot></slot>
   </button>

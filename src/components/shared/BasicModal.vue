@@ -6,6 +6,7 @@ export default {
   },
   props: {
     isOpen: Boolean,
+    disabled: Boolean,
     title: String
   },
   methods: {
@@ -48,7 +49,7 @@ export default {
             <DynamicButton btnStyle="secondary" @buttonClicked="onClose">
               Cancel
             </DynamicButton>
-            <DynamicButton btnStyle="main" @buttonClicked="onProcced">
+            <DynamicButton btnStyle="main" @buttonClicked="onProcced" :disabled="disabled">
               Save
             </DynamicButton>
           </div>
