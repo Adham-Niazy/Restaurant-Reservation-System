@@ -7,3 +7,9 @@ export function listBranches(withSectionsAndTables = false) {
     }
   });
 }
+
+export function enableBranchForReservation(branchId) {
+  return axios.put(`/branches/${branchId}`, {
+    accepts_reservations: true
+  });
+}
