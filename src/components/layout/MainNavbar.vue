@@ -1,5 +1,5 @@
 <script>
-import DynamicButton from "../shared/DynamicButton.vue";
+import DynamicButton from "@/components/shared/DynamicButton.vue";
 export default {
   components: {
     DynamicButton,
