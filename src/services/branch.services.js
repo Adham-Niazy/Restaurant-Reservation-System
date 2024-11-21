@@ -8,7 +8,7 @@ export function listBranches(withSectionsAndTables = false) {
   });
 }
 
-export function enableBranchForReservation(branchId) {
+export function enableSpecificBranchForReservation(branchId) {
   return axios.put(`/branches/${branchId}`, {
     accepts_reservations: true
   });

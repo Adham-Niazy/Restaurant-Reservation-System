@@ -1,6 +1,11 @@
 <script>
 export default {
   props: ["items", "headers"],
+  methods: {
+    rowClick(clickedItem) {
+      this.$emit('onRowClicked', clickedItem)
+    }
+  }
 };
 </script>
 
@@ -15,7 +20,7 @@ export default {
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white hover:bg-gray-50 cursor-pointer" v-for="item in items" :key="item.id">
+        <tr class="bg-white hover:bg-gray-50 cursor-pointer" v-for="item in items" :key="item.id" @click="rowClick(item)">
           <td v-for="header in headers" :key="item.id + header.value" class="px-6 py-4">{{ item[header.value] }}</td>
         </tr>
       </tbody>

@@ -1,37 +1,52 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { enableBranchForReservation, listBranches } from '@/services/branch.services';
+import { enableSpecificBranchForReservation, listBranches } from '@/services/branch.services';
+import { STATE_KEYS } from './state_keys';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     branches: [],
-    selectedToAddBranch: null
+    selectedToAddBranch: null,
+    selectedToEditBranch: null,
+    ui: {
+      mode: 'add',
+      isModalOpen: false
+    }
   },
   mutations: {
-    updateBranches(state, branches) {
-      state.branches = branches;
+    updateState(state, { key, change }) {
+      state[key] = change;
     },
-    updateSelectedToAddBranch(state, branchId) {
-      state.selectedToAddBranch = branchId;
+    updateUIState(state, { key, change }) {
+      state.ui[key] = change;
     }
   },
   actions: {
     async getBranches({ commit }) {
       try {
         const { data: branches } = await listBranches(true);
-        commit('updateBranches', branches);
+        commit('updateState', {
+          key: STATE_KEYS.BRANCHES,
+          change: branches
+        });
       } catch (e) {
         console.log(e);
       }
     },
     async enableBranchForReservation({ commit }) {
       try {
-        await enableBranchForReservation(this.state.selectedToAddBranch);
+        await enableSpecificBranchForReservation(this.state.selectedToAddBranch);
         const { data: branches } = await listBranches(true);
-        commit('updateBranches', branches);
-        commit('updateSelectedToAddBranch', null);
+        commit('updateState', {
+          key: STATE_KEYS.BRANCHES,
+          change: branches
+        });
+        commit('updateState', {
+          key: STATE_KEYS.SELECTED_TO_ADD_BRANCH,
+          change: null
+        });
       } catch (e) {
         console.log(e);
       }

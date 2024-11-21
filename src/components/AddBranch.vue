@@ -1,6 +1,7 @@
 <script>
 import SelectInput from '@/components/shared/SelectInput.vue';
 import { mapGetters, mapMutations } from 'vuex';
+import { STATE_KEYS } from '@/store/state_keys';
 export default {
   data() {
     return {
@@ -23,9 +24,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['updateSelectedToAddBranch']),
+    ...mapMutations(['updateState']),
     onSelectBranch(change) {
-      this.updateSelectedToAddBranch(change);
+      this.updateState({
+        key: STATE_KEYS.SELECTED_TO_ADD_BRANCH,
+        change
+      });
     }
   }
 }
