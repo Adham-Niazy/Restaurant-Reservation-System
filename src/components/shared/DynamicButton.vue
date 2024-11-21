@@ -6,6 +6,8 @@ export default {
       switch (this.btnStyle) {
         case "main":
           return "bg-violet-700 rounded-md text-white";
+        case "secondary":
+          return "border border-[#EEE] rounded-md text-black"
         default:
           return "";
       }
@@ -22,7 +24,7 @@ export default {
 <template>
   <button
     @click="handleClickEmitter"
-    :class="`${appliedBtnStyles} px-4 py-2 cursor-pointer`"
+    :class="`${appliedBtnStyles} px-4 py-2 cursor-pointer font-extralight`"
   >
     <slot></slot>
   </button>
