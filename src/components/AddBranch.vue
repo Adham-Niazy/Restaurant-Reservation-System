@@ -1,6 +1,6 @@
 <script>
 import SelectInput from '@/components/shared/SelectInput.vue';
-import { listBranches } from '@/services/branch.services';
+import { mapGetters, mapMutations } from 'vuex';
 export default {
   data() {
     return {
@@ -11,17 +11,10 @@ export default {
   components: {
     SelectInput
   },
-  async mounted() {
-    try {
-      const { data: branches } = await listBranches(true);
-      this.branches = branches.filter((branch) => !branch.accepts_reservations);
-    } catch (e) {
-      console.log(e);
-    }
-  },
   computed: {
+    ...mapGetters(['getDisabledBranchesForReservations']),
     mappedOptions() {
-      return this.branches.map((branch) => {
+      return this.getDisabledBranchesForReservations.map((branch) => {
         return {
           label: `${branch.name} - ${branch.reference}`,
           value: branch.id
@@ -30,8 +23,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['updateSelectedToAddBranch']),
     onSelectBranch(change) {
-      console.log(change)
+      this.updateSelectedToAddBranch(change);
     }
   }
 }
