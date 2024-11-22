@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/core/interceptors";
 
 export function listBranches(withSectionsAndTables = false) {
   return axios.get("/branches", {
