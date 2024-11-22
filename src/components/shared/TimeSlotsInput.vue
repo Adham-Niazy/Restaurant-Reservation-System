@@ -15,9 +15,18 @@ export default {
       this.form.reservation_times[day].splice(index, 1);
     },
     updateSlot(day, index, positions, change) {
-      console.log(day, index, positions, change);
       this.form.reservation_times[day][index][positions] = change;
     },
+    getClonedVersionFromDay(day) {
+      return this.form.reservation_times[day].map((slot) => [...slot]);
+    },
+    applyOnAllDays(day) {
+      for(let weekday in this.form.reservation_times) {
+        if ( weekday !== day ) {
+          this.form.reservation_times[weekday] = this.getClonedVersionFromDay(day);
+        }
+      }
+    }
   },
 };
 </script>
@@ -25,7 +34,10 @@ export default {
 <template>
   <div class="flex flex-col gap-7">
     <div v-for="(slots, day) in form.reservation_times" :key="day">
-      <h3 class="mb-1 uppercase">{{ day }}</h3>
+      <div class="flex items-center justify-between">
+        <h3 class="mb-1 uppercase">{{ day }}</h3>
+        <h3 @click="applyOnAllDays(day)" v-if="day === 'saturday'" class="mb-1 text-violet-600 cursor-pointer">Apply on all days</h3>
+      </div>
       <div class="p-2 rounded-xl border-gray-300 bg-white border">
         <div class="flex justify-between items-center">
           <div
