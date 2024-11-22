@@ -1,4 +1,4 @@
-# [Restaurant-Reservation-System]() 👨🏻‍🍳 
+# [Restaurant-Reservation-System](https://restaurant-reservation-system-brown.vercel.app/) 👨🏻‍🍳
 
 <h1 align="center">Main Page</h1>
 
@@ -42,10 +42,10 @@
 
 ## 2. Style 🎨 & Packages ⚙️
 
-* Styling: Tailwind CSS.
-* Packages: `axios` for HTTP calls & `vuex` for state management.
+- Styling: Tailwind CSS.
+- Packages: `axios` for HTTP calls & `vuex` for state management.
 
 ## 3. Git & CICD ⚡
 
-* For Keeping my development history intact and in multiple commits: `50` commit.
-* I used `Automatic CICD` offered by `Vercel`. 🌐
+- For Keeping my development history intact and in multiple commits: `53` commit.
+- I used `Automatic CICD` offered by `Vercel`. 🌐
