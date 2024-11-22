@@ -8,3 +8,8 @@ export const UI_KEYS = {
   MODE: 'mode',
   IS_MODAL_OPEN: 'isModalOpen',
 }
+
+export const FORM_KEYS = {
+  RESERVATION_DURATION: 'reservation_duration',
+  RESERVATION_TIMES: 'reservation_times',
+}
