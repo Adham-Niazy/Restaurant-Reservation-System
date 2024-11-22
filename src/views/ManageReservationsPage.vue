@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       branchName: "",
+      isLoadingBranches: true,
     };
   },
   components: {
@@ -24,7 +25,14 @@ export default {
     ...mapGetters(["getEnabledBranchesForReservations", "mappedTableContent"]),
   },
   async mounted() {
-    this.getBranches();
+    this.isLoadingBranches = true;
+    try {
+      await this.getBranches();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.isLoadingBranches = false;
+    }
   },
   methods: {
     ...mapActions(["getBranches", "enableBranchForReservation"]),
@@ -73,7 +81,7 @@ export default {
 
 <template>
   <div class="px-12 pt-12">
-    <div class="bg-white rounded-md shadow-md">
+    <div class="bg-white rounded-md shadow-md overflow-hidden">
       <div class="flex justify-end py-4 border-b border-[#EEE] px-4">
         <DynamicButton btnStyle="secondary" @buttonClicked="onOpenAddBranch">
           Add Branch
@@ -89,6 +97,7 @@ export default {
             { label: 'Reservation Duration', value: 'duration' },
           ]"
           :items="mappedTableContent"
+          :loading="isLoadingBranches"
           @onRowClicked="specificBranchClick"
         ></BranchesTable>
       </div>
