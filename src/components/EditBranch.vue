@@ -3,15 +3,13 @@ import { mapActions, mapMutations, mapState } from "vuex";
 import { getBranchDetails } from "@/services/branch.services";
 import InlineLoader from "@/components/shared/InlineLoader.vue";
 import BasicInput from "@/components/shared/BasicInput.vue";
-import DynamicButton from "@/components/shared/DynamicButton.vue";
 import "vue-multiselect/dist/vue-multiselect.min.css";
-import { FORM_KEYS, UI_KEYS } from "@/store/state_keys";
+import { FORM_KEYS } from "@/store/state_keys";
 import TimeSlotsInput from "./shared/TimeSlotsInput.vue";
 export default {
   components: {
     InlineLoader,
     BasicInput,
-    DynamicButton,
     TimeSlotsInput,
   },
   data() {
@@ -29,13 +27,6 @@ export default {
       this.updateFormState({
         key: FORM_KEYS.RESERVATION_DURATION,
         change,
-      });
-    },
-    onSubmitEditForm() {
-      this.editSpecificBranch();
-      this.updateUIState({
-        key: UI_KEYS.IS_MODAL_OPEN,
-        change: false,
       });
     },
   },
@@ -80,10 +71,6 @@ export default {
     ></BasicInput>
 
     <TimeSlotsInput></TimeSlotsInput>
-
-    <DynamicButton btnStyle="main" @buttonClicked="onSubmitEditForm">
-      Submit
-    </DynamicButton>
   </div>
   <div class="flex justify-center" v-else>
     <InlineLoader></InlineLoader>
