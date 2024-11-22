@@ -42,7 +42,9 @@ export default {
             </h3>
           </div>
           <!-- Modal body -->
-          <div class="p-4 md:p-5 space-y-4 bg-slate-200">
+          <div
+            class="p-4 md:p-5 space-y-4 bg-slate-200 max-h-[60vh] overflow-y-scroll"
+          >
             <slot></slot>
           </div>
           <!-- Modal footer -->
