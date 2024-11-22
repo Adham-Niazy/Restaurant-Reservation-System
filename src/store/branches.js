@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { editBranch, listBranches } from '@/services/branch.services';
+import { editBranch, listBranches } from '@/core/services/branch.services';
 import { STATE_KEYS, UI_KEYS } from './state_keys';
 
 Vue.use(Vuex);

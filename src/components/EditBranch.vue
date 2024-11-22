@@ -1,11 +1,11 @@
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
-import { editBranch, getBranchDetails } from "@/services/branch.services";
+import { editBranch, getBranchDetails } from "@/core/services/branch.services";
 import InlineLoader from "@/components/shared/InlineLoader.vue";
 import BasicInput from "@/components/shared/BasicInput.vue";
 import { FORM_KEYS } from "@/store/state_keys";
-import { DESIRED_WEEK_ORDER } from "@/constants/days";
-import { deepClone } from "@/utils/objects";
+import { DESIRED_WEEK_ORDER } from "@/core/constants/days";
+import { deepClone } from "@/core/utils/objects";
 import TimeSlotsInput from "./shared/TimeSlotsInput.vue";
 import DynamicButton from "./shared/DynamicButton.vue";
 export default {
