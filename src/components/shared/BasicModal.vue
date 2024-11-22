@@ -1,23 +1,24 @@
 <script>
-import DynamicButton from '@/components/shared/DynamicButton.vue'
+import DynamicButton from "@/components/shared/DynamicButton.vue";
 export default {
   components: {
-    DynamicButton
+    DynamicButton,
   },
   props: {
     isOpen: Boolean,
     disabled: Boolean,
-    title: String
+    title: String,
+    loading: Boolean,
   },
   methods: {
     onClose() {
-      this.$emit('onClose');
+      this.$emit("onClose");
     },
     onProcced() {
-      this.$emit('onProcced')
-    }
-  }
-}
+      this.$emit("onProcced");
+    },
+  },
+};
 </script>
 
 <template>
@@ -25,7 +26,9 @@ export default {
     <div
       id="basic-modal"
       tabindex="-1"
-      :class="`${isOpen ? 'flex' : 'hidden'} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 justify-center items-center w-full md:inset-0 h-full bg-black/25`"
+      :class="`${
+        isOpen ? 'flex' : 'hidden'
+      } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 justify-center items-center w-full md:inset-0 h-full bg-black/25`"
     >
       <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -49,7 +52,12 @@ export default {
             <DynamicButton btnStyle="secondary" @buttonClicked="onClose">
               Cancel
             </DynamicButton>
-            <DynamicButton btnStyle="main" @buttonClicked="onProcced" :disabled="disabled">
+            <DynamicButton
+              btnStyle="main"
+              @buttonClicked="onProcced"
+              :disabled="disabled || loading"
+              :loading="loading"
+            >
               Save
             </DynamicButton>
           </div>
