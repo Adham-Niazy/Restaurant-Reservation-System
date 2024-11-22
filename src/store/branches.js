@@ -13,6 +13,10 @@ export default new Vuex.Store({
     ui: {
       mode: 'add',
       isModalOpen: false
+    },
+    form: {
+      reservation_duration: 0,
+      reservation_times: null
     }
   },
   mutations: {
@@ -21,6 +25,9 @@ export default new Vuex.Store({
     },
     updateUIState(state, { key, change }) {
       state.ui[key] = change;
+    },
+    updateFormState(state, { key, change }) {
+      state.form[key] = change;
     }
   },
   actions: {
@@ -54,9 +61,10 @@ export default new Vuex.Store({
       }
     },
     async editSpecificBranch({ commit }) {
+      const { reservation_duration, reservation_times } = this.state.form;
       try {
         await editBranch(this.state.selectedToEditBranch, {
-          reservation_duration: 32,
+          reservation_duration, reservation_times
         });
         const { data: branches } = await listBranches(true);
         commit('updateState', {
