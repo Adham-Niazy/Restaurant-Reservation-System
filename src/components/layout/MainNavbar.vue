@@ -14,7 +14,7 @@ export default {
 
 <template>
   <nav
-    class="flex justify-between items-center px-12 py-5 border-b border-[#EEE]"
+    class="flex justify-between items-center px-12 py-5 border-b border-[#EEE] bg-white"
   >
     <h2 class="font-light">Reservations</h2>
     <DynamicButton
