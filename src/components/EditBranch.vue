@@ -5,37 +5,31 @@ import InlineLoader from "@/components/shared/InlineLoader.vue";
 import BasicInput from "@/components/shared/BasicInput.vue";
 import DynamicButton from "@/components/shared/DynamicButton.vue";
 import "vue-multiselect/dist/vue-multiselect.min.css";
-import { UI_KEYS } from "@/store/state_keys";
+import { FORM_KEYS, UI_KEYS } from "@/store/state_keys";
+import TimeSlotsInput from "./shared/TimeSlotsInput.vue";
 export default {
   components: {
     InlineLoader,
     BasicInput,
     DynamicButton,
+    TimeSlotsInput,
   },
   data() {
     return {
       branchDetails: null,
-      form: {
-        duration: 0,
-        tables: [],
-        slots: [],
-      },
-      value: [],
-      options: [
-        { name: "Vue.js", code: "vu" },
-        { name: "Javascript", code: "js" },
-        { name: "Open Source", code: "os" },
-      ],
     };
   },
   computed: {
-    ...mapState(["selectedToEditBranch"]),
+    ...mapState(["selectedToEditBranch", "form"]),
   },
   methods: {
     ...mapActions(["editSpecificBranch"]),
-    ...mapMutations(["updateUIState"]),
+    ...mapMutations(["updateUIState", "updateFormState"]),
     onDurationChange(change) {
-      this.form.duration = change;
+      this.updateFormState({
+        key: FORM_KEYS.RESERVATION_DURATION,
+        change,
+      });
     },
     onSubmitEditForm() {
       this.editSpecificBranch();
@@ -51,7 +45,14 @@ export default {
         this.selectedToEditBranch
       );
       this.branchDetails = branchDetails;
-      this.form.duration = branchDetails?.reservation_duration;
+      this.updateFormState({
+        key: FORM_KEYS.RESERVATION_DURATION,
+        change: branchDetails?.reservation_duration,
+      });
+      this.updateFormState({
+        key: FORM_KEYS.RESERVATION_TIMES,
+        change: branchDetails?.reservation_times,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -72,11 +73,13 @@ export default {
       name="branchReservationDuration"
       label="Resertvation Duration (minutes)"
       :required="true"
-      :value="`${form.duration}`"
+      :value="`${form.reservation_duration}`"
       :min="0"
       type="number"
       @onInputChange="onDurationChange"
     ></BasicInput>
+
+    <TimeSlotsInput></TimeSlotsInput>
 
     <DynamicButton btnStyle="main" @buttonClicked="onSubmitEditForm">
       Submit
