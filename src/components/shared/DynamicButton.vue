@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ["btnStyle", "disabled"],
+  props: ["btnStyle", "disabled", "loading"],
   computed: {
     appliedBtnStyles() {
       switch (this.btnStyle) {
@@ -27,6 +27,7 @@ export default {
     @click="handleClickEmitter"
     :class="`${appliedBtnStyles} disabled:opacity-40 disabled:cursor-not-allowed px-4 py-2 cursor-pointer font-extralight`"
   >
-    <slot></slot>
+    <slot v-if="!loading"></slot>
+    <div v-else>Loading..</div>
   </button>
 </template>
