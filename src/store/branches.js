@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { editBranch, listBranches } from '@/services/branch.services';
-import { STATE_KEYS } from './state_keys';
+import { STATE_KEYS, UI_KEYS } from './state_keys';
 
 Vue.use(Vuex);
 
@@ -31,6 +31,24 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    resetStateVariables({ commit }) {
+      commit('updateState', {
+        key: STATE_KEYS.SELECTED_TO_ADD_BRANCH,
+        change: null
+      });
+      commit('updateState', {
+        key: STATE_KEYS.SELECTED_TO_EDIT_BRANCH,
+        change: null
+      });
+      commit('updateUIState', {
+        key: UI_KEYS.MODE,
+        change: null
+      });
+      commit('updateUIState', {
+        key: UI_KEYS.IS_MODAL_OPEN,
+        change: false
+      });
+    },
     async getBranches({ commit }) {
       try {
         const { data: branches } = await listBranches(true);
@@ -42,39 +60,25 @@ export default new Vuex.Store({
         console.log(e);
       }
     },
-    async enableBranchForReservation({ commit }) {
+    async enableBranchForReservation({ dispatch }) {
       try {
         await editBranch(this.state.selectedToAddBranch, {
           accepts_reservations: true
         });
-        const { data: branches } = await listBranches(true);
-        commit('updateState', {
-          key: STATE_KEYS.BRANCHES,
-          change: branches
-        });
-        commit('updateState', {
-          key: STATE_KEYS.SELECTED_TO_ADD_BRANCH,
-          change: null
-        });
+        dispatch('getBranches');
+        dispatch('resetStateVariables');
       } catch (e) {
         console.log(e);
       }
     },
-    async editSpecificBranch({ commit }) {
+    async editSpecificBranch({ dispatch }) {
       const { reservation_duration, reservation_times } = this.state.form;
       try {
         await editBranch(this.state.selectedToEditBranch, {
           reservation_duration, reservation_times
         });
-        const { data: branches } = await listBranches(true);
-        commit('updateState', {
-          key: STATE_KEYS.BRANCHES,
-          change: branches
-        });
-        commit('updateState', {
-          key: STATE_KEYS.SELECTED_TO_EDIT_BRANCH,
-          change: null
-        });
+        dispatch('getBranches');
+        dispatch('resetStateVariables');
       } catch (e) {
         console.log(e);
       }
