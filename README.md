@@ -1,24 +1,51 @@
-# restaurant-management-system
+# [Restaurant-Reservation-System]() 👨🏻‍🍳 
 
-## Project setup
-```
-npm install
-```
+<h1 align="center">Main Page</h1>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![Main Page Preview](Main_Page.png)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+<h1 align="center">Edit Branch Popup</h1>
 
-### Lints and fixes files
-```
-npm run lint
-```
+![Edit Branch Popup Preview](Edit_Branch_Popup.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<h1 align="center">Add Branch Popup</h1>
+
+![Edit Branch Popup Preview](Add_Branch_Popup.png)
+
+## Here's what I put into my consideration. 🧠
+
+## 1. Structure (I used the following structure in my code). 🧹
+
+- `src`
+  - `components`
+    - `layout`
+      - Main Navbar
+    - `shared`
+      - Basic Input
+      - Basic Modal
+      - Dynamic Button
+      - Inline Loader
+      - Select Input
+      - Time Slots Input
+    - Add Branch
+    - Branches Table
+    - Edit Branch
+  - `core`
+    - `constants`
+    - `interceptors`
+    - `services`
+    - `utils`
+  - `store`
+    - branches
+  - `views`
+    - Manage Reservation Page
+
+## 2. Style 🎨 & Packages ⚙️
+
+* Styling: Tailwind CSS.
+* Packages: `axios` for HTTP calls & `vuex` for state management.
+
+## 3. Git & CICD ⚡
+
+* For Keeping my development history intact and in multiple commits: `50` commit.
+* I used `Automatic CICD` offered by `Vercel`. 🌐
