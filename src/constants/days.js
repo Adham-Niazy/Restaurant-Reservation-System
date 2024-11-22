@@ -1,0 +1,1 @@
+export const DESIRED_WEEK_ORDER = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];

@@ -3,9 +3,11 @@ import { mapActions, mapMutations, mapState } from "vuex";
 import { getBranchDetails } from "@/services/branch.services";
 import InlineLoader from "@/components/shared/InlineLoader.vue";
 import BasicInput from "@/components/shared/BasicInput.vue";
-import "vue-multiselect/dist/vue-multiselect.min.css";
 import { FORM_KEYS } from "@/store/state_keys";
+import { DESIRED_WEEK_ORDER } from "@/constants/days";
+import { deepClone } from "@/utils/objects";
 import TimeSlotsInput from "./shared/TimeSlotsInput.vue";
+import "vue-multiselect/dist/vue-multiselect.min.css";
 export default {
   components: {
     InlineLoader,
@@ -42,7 +44,9 @@ export default {
       });
       this.updateFormState({
         key: FORM_KEYS.RESERVATION_TIMES,
-        change: branchDetails?.reservation_times,
+        change: Object.fromEntries(
+          DESIRED_WEEK_ORDER.map((key) => [key, deepClone(branchDetails?.reservation_times[key])])
+        ),
       });
     } catch (e) {
       console.log(e);
