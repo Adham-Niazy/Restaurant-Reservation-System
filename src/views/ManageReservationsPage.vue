@@ -72,7 +72,7 @@ export default {
 </script>
 
 <template>
-  <div class="px-12 pt-12 bg-slate-200 min-h-[92vh]">
+  <div class="px-12 pt-12">
     <div class="bg-white rounded-md shadow-md">
       <div class="flex justify-end py-4 border-b border-[#EEE] px-4">
         <DynamicButton btnStyle="secondary" @buttonClicked="onOpenAddBranch">
