@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { enableSpecificBranchForReservation, listBranches } from '@/services/branch.services';
+import { editBranch, listBranches } from '@/services/branch.services';
 import { STATE_KEYS } from './state_keys';
 
 Vue.use(Vuex);
@@ -37,7 +37,9 @@ export default new Vuex.Store({
     },
     async enableBranchForReservation({ commit }) {
       try {
-        await enableSpecificBranchForReservation(this.state.selectedToAddBranch);
+        await editBranch(this.state.selectedToAddBranch, {
+          accepts_reservations: true
+        });
         const { data: branches } = await listBranches(true);
         commit('updateState', {
           key: STATE_KEYS.BRANCHES,
@@ -45,6 +47,24 @@ export default new Vuex.Store({
         });
         commit('updateState', {
           key: STATE_KEYS.SELECTED_TO_ADD_BRANCH,
+          change: null
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async editSpecificBranch({ commit }) {
+      try {
+        await editBranch(this.state.selectedToEditBranch, {
+          reservation_duration: 32,
+        });
+        const { data: branches } = await listBranches(true);
+        commit('updateState', {
+          key: STATE_KEYS.BRANCHES,
+          change: branches
+        });
+        commit('updateState', {
+          key: STATE_KEYS.SELECTED_TO_EDIT_BRANCH,
           change: null
         });
       } catch (e) {
