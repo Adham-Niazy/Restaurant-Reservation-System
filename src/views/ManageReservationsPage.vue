@@ -11,6 +11,7 @@ export default {
     return {
       branchName: "",
       isLoadingBranches: true,
+      isLoadingModal: false,
     };
   },
   components: {
@@ -35,7 +36,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getBranches", "enableBranchForReservation"]),
+    ...mapActions([
+      "getBranches",
+      "enableBranchForReservation",
+      "editSpecificBranch",
+      "resetStateVariables"
+    ]),
     ...mapMutations(["updateUIState", "updateState"]),
     onOpenAddBranch() {
       this.updateUIState({
@@ -63,17 +69,25 @@ export default {
       });
     },
     onCloseModal() {
-      this.updateUIState({
-        key: UI_KEYS.IS_MODAL_OPEN,
-        change: false,
-      });
+      this.resetStateVariables();
     },
-    onProccedModal() {
-      this.updateUIState({
-        key: UI_KEYS.IS_MODAL_OPEN,
-        change: false,
-      });
-      this.enableBranchForReservation();
+    async onProccedModal() {
+      this.isLoadingModal = true;
+      try {
+        if (this.ui[UI_KEYS.MODE] === "add") {
+          await this.enableBranchForReservation();
+        } else {
+          await this.editSpecificBranch();
+        }
+        this.updateUIState({
+          key: UI_KEYS.IS_MODAL_OPEN,
+          change: false,
+        });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.isLoadingModal = false;
+      }
     },
   },
 };
@@ -109,6 +123,7 @@ export default {
           ? 'Add Branch'
           : `Edit ${branchName} reservation settings`
       "
+      :loading="isLoadingModal"
       @onClose="onCloseModal"
       @onProcced="onProccedModal"
     >
