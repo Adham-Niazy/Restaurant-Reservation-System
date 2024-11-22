@@ -19,11 +19,14 @@ export default {
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="items.length > 0">
         <tr class="bg-white hover:bg-gray-50 cursor-pointer" v-for="item in items" :key="item.id" @click="rowClick(item)">
           <td v-for="header in headers" :key="item.id + header.value" class="px-6 py-4">{{ item[header.value] }}</td>
         </tr>
       </tbody>
+      <div class="my-4 text-center w-full" v-else>
+        <h2>No Branches Found</h2>
+      </div>
     </table>
   </div>
 </template>
