@@ -5,8 +5,13 @@ import AddBranch from "@/components/AddBranch.vue";
 import EditBranch from "@/components/EditBranch.vue";
 import BranchesTable from "@/components/BranchesTable.vue";
 import BasicModal from "@/components/shared/BasicModal.vue";
-import { UI_KEYS } from "@/store/state_keys";
+import { STATE_KEYS, UI_KEYS } from "@/store/state_keys";
 export default {
+  data() {
+    return {
+      branchName: "",
+    };
+  },
   components: {
     DynamicButton,
     BranchesTable,
@@ -23,7 +28,7 @@ export default {
   },
   methods: {
     ...mapActions(["getBranches", "enableBranchForReservation"]),
-    ...mapMutations(["updateUIState"]),
+    ...mapMutations(["updateUIState", "updateState"]),
     onOpenAddBranch() {
       this.updateUIState({
         key: UI_KEYS.IS_MODAL_OPEN,
@@ -35,7 +40,19 @@ export default {
       });
     },
     specificBranchClick(clickedBranch) {
-      console.log(clickedBranch);
+      this.branchName = clickedBranch.branch;
+      this.updateUIState({
+        key: UI_KEYS.IS_MODAL_OPEN,
+        change: true,
+      });
+      this.updateUIState({
+        key: UI_KEYS.MODE,
+        change: "edit",
+      });
+      this.updateState({
+        key: STATE_KEYS.SELECTED_TO_EDIT_BRANCH,
+        change: clickedBranch.id,
+      });
     },
     onCloseModal() {
       this.updateUIState({
@@ -77,9 +94,12 @@ export default {
       </div>
     </div>
     <BasicModal
-      :disabled="selectedToAddBranch === null"
       :isOpen="ui.isModalOpen"
-      title="Add Branch"
+      :title="
+        ui.mode === 'add'
+          ? 'Add Branch'
+          : `Edit ${branchName} reservation settings`
+      "
       @onClose="onCloseModal"
       @onProcced="onProccedModal"
     >
