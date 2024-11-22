@@ -7,7 +7,6 @@ import { FORM_KEYS } from "@/store/state_keys";
 import { DESIRED_WEEK_ORDER } from "@/constants/days";
 import { deepClone } from "@/utils/objects";
 import TimeSlotsInput from "./shared/TimeSlotsInput.vue";
-import "vue-multiselect/dist/vue-multiselect.min.css";
 export default {
   components: {
     InlineLoader,
